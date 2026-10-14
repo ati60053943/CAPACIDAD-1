@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contacto | Mi página personal</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #dbeafe;
+            color: #1e293b;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            background: #1e3a8a;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            background: #2563eb;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+
+        .descripcion {
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #93c5fd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid #2563eb;
+            border-color: transparent;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        button:disabled {
+            background: #64748b;
+            cursor: wait;
+        }
+
+        #resultado {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            nav a {
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-envelope"></i> Contáctame</h1>
+        <p>Mi página web personal</p>
+    </header>
+
+    <nav>
+        <a href="index .html">Inicio</a>
+        <a href="sobre .html">Sobre mí</a>
+        <a href="galeria .html">Galería</a>
+        <a href="Proyectos.html">Proyectos</a>
+        <a href="contacto .html">Contacto</a>
+    </nav>
+
+    <main>
+        <h2>Envíame un mensaje</h2>
+
+        <p class="descripcion">
+            ¿Tienes alguna consulta o sugerencia?
+            Completa el siguiente formulario para comunicarte conmigo.
+        </p>
+
+        <form id="formulario-contacto">
+
+            <!-- CAMBIA LA CLAVE EN ESTA LÍNEA -->
+            <input
+                type="hidden"
+                name="access_key"
+                value="9d360a94-d306-4f67-b743-4b5ca14dd3ba">
+
+            <input
+                type="hidden"
+                name="subject"
+                value="Nuevo mensaje desde mi página web">
+
+            <label for="nombre">Nombre completo:</label>
+            <input
+                type="text"
+                id="nombre"
+                name="name"
+                placeholder="Escribe tu nombre"
+                required>
+
+            <label for="correo">Correo electrónico:</label>
+            <input
+                type="email"
+                id="correo"
+                name="email"
+                placeholder="ejemplo@correo.com"
+                required>
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea
+                id="mensaje"
+                name="message"
+                placeholder="Escribe tu mensaje aquí..."
+                required></textarea>
+
+            <button type="submit" id="boton-enviar">
+                <i class="fa-solid fa-paper-plane"></i>
+                Enviar mensaje
+            </button>
+
+            <p id="resultado" role="status" aria-live="polite"></p>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Mi página web personal</p>
+    </footer>
+
+    <script>
+        const formulario = document.getElementById("formulario-contacto");
+        const resultado = document.getElementById("resultado");
+        const boton = document.getElementById("boton-enviar");
+
+        formulario.addEventListener("submit", async function(evento) {
+            evento.preventDefault();
+
+            const clave = formulario.elements["access_key"].value.trim();
+
+            if (!clave || clave === "PEGA_AQUI_TU_NUEVA_CLAVE") {
+                resultado.textContent =
+                    "Error: debes colocar tu clave de Web3Forms en el formulario.";
+
+                return;
+            }
+
+            boton.disabled = true;
+            boton.textContent = "Enviando mensaje...";
+            resultado.textContent = "";
+
+            try {
+                const datos = new FormData(formulario);
+
+                const respuesta = await fetch(
+                    "https://api.web3forms.com/submit",
+                    {
+                        method: "POST",
+                        body: datos
+                    }
+                );
+
+                const respuestaJSON = await respuesta.json();
+
+                if (respuesta.ok && respuestaJSON.success) {
+                    resultado.textContent =
+                        "¡Mensaje enviado correctamente! Gracias por contactarme.";
+
+                    formulario.reset();
+                } else {
+                    resultado.textContent =
+                        "No se pudo enviar el mensaje. Revisa tu clave y la configuración de Web3Forms.";
+                }
+
+            } catch (error) {
+                resultado.textContent =
+                    "No se pudo conectar. Revisa tu conexión a Internet e inténtalo nuevamente.";
+            } finally {
+                boton.disabled = false;
+                boton.innerHTML =
+                    '<i class="fa-solid fa-paper-plane"></i> Enviar mensaje';
+            }
+        });
+    </script>
+
+</body>
+</html>
